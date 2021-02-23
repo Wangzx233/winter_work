@@ -35,9 +35,5 @@ func CreateComment(c *gin.Context)  {
 		c.JSON(http.StatusOK, gin.H{
 			"message": err,
 		})
-	} else {
-		c.JSON(http.StatusOK, gin.H{
-			"message": err,
-		})
 	}
 }

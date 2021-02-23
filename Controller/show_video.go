@@ -61,3 +61,14 @@ func UserVideo(c *gin.Context) {
 	c.JSON(200,res)
 
 }
+
+func HotVideo(c *gin.Context)  {
+
+	err,res	:= Model.HotVideo();if err!=nil{
+		c.String(http.StatusBadRequest, "Error:%s", err)
+		return
+	}
+
+	c.JSON(200,res)
+
+}

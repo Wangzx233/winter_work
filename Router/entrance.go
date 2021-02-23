@@ -35,6 +35,9 @@ func Entrance() {
 		//分区视频和相关推荐
 		v1.GET("video/list",Controller.FindVideo)
 
+		//推荐视频
+		v1.GET("video/hot",Controller.HotVideo)
+
 		//删除视频
 		v1.DELETE("video",middleware.Auth(),Controller.DeleteVideo)
 
