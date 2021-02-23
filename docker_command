@@ -1,0 +1,2 @@
+docker build -t registry.cn-hangzhou.aliyuncs.com/wzx233/bibi_api:v0.0.4 ./
+docker push registry.cn-hangzhou.aliyuncs.com/wzx233/bibi_api:v0.0.4
