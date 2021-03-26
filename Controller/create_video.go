@@ -44,7 +44,7 @@ func CreatVideo(context *gin.Context)  {
 	}
 	video.UID=uid
 
-	//保存视频(分区没做)
+	//保存视频
 	url := "./"+video.Part+"/"+username.Value+"/"+videoName
 	fmt.Println(url)
 
@@ -70,5 +70,5 @@ func CreatVideo(context *gin.Context)  {
 		return
 	}
 
-	context.String(http.StatusOK, "上传文件成功")
+	context.JSON(http.StatusOK, "上传文件成功")
 }

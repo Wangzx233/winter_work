@@ -71,9 +71,9 @@ func Entrance() {
 		v1.GET("video/barrage",Controller.ShowBarrage)
 
 		//三连
-		v1.PUT("video/like",middleware.Auth(),Controller.Like)
+		//v1.PUT("video/like",middleware.Auth(),Controller.Like)
 		v1.PUT("video/coin",middleware.Auth(),Controller.Coin)
-		v1.PUT("video/collection",middleware.Auth(),Controller.Collection)
+		//v1.PUT("video/collection",middleware.Auth(),Controller.Collection)
 	}
 
 	err:=r.Run(":8080")

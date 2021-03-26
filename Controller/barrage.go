@@ -7,14 +7,10 @@ import (
 )
 
 func SentBarrage(c *gin.Context)  {
-	uid,err := c.Request.Cookie("uid");if err!=nil{
-		c.JSON(400,err)
-		return
-	}
-	var ba _struct.Barrage
-	ba.Uid=uid.Value
 
-	err = c.ShouldBind(ba);if err!=nil{
+	var ba _struct.Barrage
+
+	err := c.ShouldBind(ba);if err!=nil{
 		c.JSON(400,err)
 		return
 	}

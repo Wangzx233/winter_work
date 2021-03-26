@@ -16,7 +16,7 @@ func ShowComment(c *gin.Context)  {
 		return
 	}
 
-	mp := make(map[int]_struct.Comment)
+	mp := []_struct.Comment{}
 	err,mp = Model.ShowComment(intid);if err!=nil{
 		c.String(http.StatusBadRequest, "Error:%s", err.Error())
 		return

@@ -6,6 +6,6 @@ import (
 )
 
 func main() {
-	Model.MysqlInit()
+	Model.SqlInit()
 	Router.Entrance()
 }
