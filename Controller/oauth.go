@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"log"
 	"net/http"
 )
 var conf = _struct.OauthConf{
@@ -29,8 +30,15 @@ func Oauth(c *gin.Context)  {
 		c.JSON(400,err)
 		return
 	}
-	if Model.Oauth(userInfo,token.AccessToken){
-		c.SetCookie("uid",token.AccessToken, 9999, "/", "/", false, false)
+	bo, u := Model.Oauth(userInfo, token.AccessToken)
+	if bo {
+		//c.SetCookie("uid",token.AccessToken, 9999, "/", "/", false, false)
+		jwt := NewJWT(u)
+		bytes, err := json.Marshal(jwt)
+		if err!=nil {
+			log.Println(err)
+		}
+		c.Header("Authorization","Bearer token="+string(bytes))
 	}
 }
 

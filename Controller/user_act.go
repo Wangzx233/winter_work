@@ -3,7 +3,9 @@ package Controller
 import (
 	"1/Model"
 	_struct "1/struct"
+	"encoding/json"
 	"github.com/gin-gonic/gin"
+	"log"
 	"net/http"
 )
 
@@ -35,9 +37,17 @@ func Login(context *gin.Context) {
 		context.JSON(900,err)
 		return
 	}
-	res:=Model.Login(user.UserName,user.Password)
+	res,uid:=Model.Login(user.UserName,user.Password)
 	if res{
-		context.SetCookie("uid",user.UserName, 9999, "/", "/", false, false)
+		//context.SetCookie("uid",user.UserName, 9999, "/", "/", false, false)
+
+		//jwt
+		jwt := NewJWT(uid)
+		bytes, err := json.Marshal(jwt)
+		if err!=nil {
+			log.Println(err)
+		}
+		context.Header("Authorization","Bearer token="+string(bytes))
 
 		context.JSON(200,gin.H{
 			"code":		200,

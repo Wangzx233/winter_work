@@ -13,12 +13,13 @@ func Register(username string, password string) (bool, string) {
 	}
 	return false,"创建失败"
 }
-func Login(username string, password string) bool {
-	err := DB.Where("user_name = ? and password = ?", username, password).First(&_struct.User{}).Error
+func Login(username string, password string) (bool,uint) {
+	var user _struct.User
+	err := DB.Where("user_name = ? and password = ?", username, password).First(&user).Error
 	if err == nil {
-		return true
+		return true,user.ID
 	}
-	return false
+	return false,user.ID
 }
 
 //func Login(username string,password string) bool {

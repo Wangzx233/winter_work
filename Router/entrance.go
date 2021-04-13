@@ -27,10 +27,10 @@ func Entrance() {
 		v1.GET("user/oauth",Controller.Oauth)
 
 		v1.POST("user/register",Controller.Register)
-		v1.GET("user/logout",middleware.Auth(),Controller.Cancel)
+		v1.GET("user/logout",middleware.Token(),Controller.Cancel)
 
 		//创建视频
-		v1.POST("video",middleware.Auth(),Controller.CreatVideo)
+		v1.POST("video",middleware.Token(),Controller.CreatVideo)
 
 		//分区视频和相关推荐
 		v1.GET("video/list",Controller.FindVideo)
@@ -39,7 +39,7 @@ func Entrance() {
 		v1.GET("video/hot",Controller.HotVideo)
 
 		//删除视频
-		v1.DELETE("video",middleware.Auth(),Controller.DeleteVideo)
+		v1.DELETE("video",middleware.Token(),Controller.DeleteVideo)
 
 		//视频详细页
 		v1.GET("video",Controller.ShowVideo)
@@ -55,7 +55,7 @@ func Entrance() {
 		v1.GET("video/show_comment",Controller.ShowComment)
 
 		//发表评论
-		v1.POST("video/create_comment",middleware.Auth(),Controller.CreateComment)
+		v1.POST("video/create_comment",middleware.Token(),Controller.CreateComment)
 
 		//用户信息
 		v1.GET("user/info",Controller.UserInfo)
@@ -72,7 +72,7 @@ func Entrance() {
 
 		//三连
 		//v1.PUT("video/like",middleware.Auth(),Controller.Like)
-		v1.PUT("video/coin",middleware.Auth(),Controller.Coin)
+		v1.PUT("video/coin",middleware.Token(),Controller.Coin)
 		//v1.PUT("video/collection",middleware.Auth(),Controller.Collection)
 	}
 

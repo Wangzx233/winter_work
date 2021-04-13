@@ -4,9 +4,9 @@ import (
 	_struct "1/struct"
 )
 
-func Oauth(userinfo map[string]interface{},token string) bool {
+func Oauth(userinfo map[string]interface{},token string) (bool,uint) {
 	var user _struct.User
-	DB.Where("token=?").Find(&user)
+	DB.Where("token=?",token).Find(&user)
 	//row,err:=DB.Query("select name from user where token=?",token)
 	//defer row.Close()
 
@@ -18,15 +18,23 @@ func Oauth(userinfo map[string]interface{},token string) bool {
 	//	}
 	//}
 	if user.Token==token {
-		return true
+		return true,user.ID
 	}else {
-		DB.Create(&_struct.User{Password: "123456",Token: token})
+
+		DB.Create(&_struct.User{Password: "123456",Token: token,UserInfo: _struct.UserInfo{
+			Stars:      0,
+			Fans:       0,
+			Likes:      0,
+			Plays:      0,
+			PictureURL: "",
+		}})
+		DB.Where("token=?",token).Find(&user)
 		//_,err:=DB.Exec("insert user (name,password,token) values (?,?,?)",userinfo["id"],"123456",token)
 		//if err!=nil{
 		//	fmt.Printf("Exec failed: %v",err)
 		//	return false
 		//}
-		return true
+		return true,user.ID
 	}
 
 }
