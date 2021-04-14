@@ -21,7 +21,7 @@ func Entrance() {
 
 		//登录
 		v1.GET("user/login",Controller.Login)
-		v1.GET("user/isLogin",Controller.IsLogin)
+		v1.GET("user/isLogin",middleware.Token(),Controller.IsLogin)
 
 		//第三方登录
 		v1.GET("user/oauth",Controller.Oauth)

@@ -66,7 +66,19 @@ func Cancel(context *gin.Context)  {
 }
 
 func IsLogin(c *gin.Context)  {
-	_, err := c.Request.Cookie("uid");if err==nil{
-		c.Redirect(http.StatusMovedPermanently, "http://115.29.201.183:443/")
+	//_, err := c.Request.Cookie("uid");if err==nil{
+	//	c.Redirect(http.StatusMovedPermanently, "http://115.29.201.183:443/")
+	//}
+	_, exists := c.Get("jwt")
+	if exists {
+		c.JSON(200,gin.H{
+			"code":		200,
+			"message":	"已登录",
+		})
+	}else {
+		c.JSON(200,gin.H{
+			"code":		200,
+			"message":	"未登录",
+		})
 	}
 }

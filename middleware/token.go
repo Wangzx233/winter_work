@@ -14,10 +14,18 @@ import (
 
 func Token() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		token := c.GetHeader("token")
+		tokenHeader := c.GetHeader("Authorization")
+		if tokenHeader == "" || !strings.HasPrefix(tokenHeader, "Bearer ") {
+			c.JSON(403,gin.H{
+				"err":"错误http头",
+			})
+			c.Abort()
+			return
+		}
 
+		token := strings.TrimPrefix(tokenHeader, "Bearer ")
 		jwt, err := checkToken(token)
-		fmt.Println(jwt)
+		c.Set("jwt",jwt)
 		if err == nil {
 			c.Next()
 		} else {
